@@ -1,10 +1,7 @@
 #' @title An MCMC-based method for Bayesian inference of natural selection from time series DNA data across linked loci
 #' @author Zhangyi He, Xiaoyang Dai, Mark Beaumont and Feng Yu
 
-# set the directory
-setwd("~/Dropbox/Jeffery He/iResearch/Publications/2016/HE2019-2L-WFD-PMMH-Horse-PLoSGenet")
-
-source("./Code/Code v1.0/HE2016_rfun_2L.R")
+source("2L_rfun_without_missingness.R")
 
 #install.packages("RColorBrewer")
 library("RColorBrewer")
@@ -122,11 +119,11 @@ for (i in 1:sim_num) {
 }
 
 save(sel_cof_A, dom_par_A, sel_cof_B, dom_par_B, rec_rat, pop_siz, int_hap_frq, int_gen, lst_gen, ptn_num, sim_num, sim_hap_frq_WFM, sim_hap_frq_WFD, 
-     file = "./Output/Output v1.0/TEST_2L_comparison_WFM_and_WFD.rda")
+     file = "TEST_2L_comparison_WFM_and_WFD.rda")
 
-load("./Output/Output v1.0/TEST_2L_comparison_WFM_and_WFD.rda")
+load("TEST_2L_comparison_WFM_and_WFD.rda")
 
-pdf(file = "./Output/Output v1.0/TEST_2L_comparison_WFM_and_WFD.pdf", width = 16, height = 9)
+pdf(file = "TEST_2L_comparison_WFM_and_WFD.pdf", width = 16, height = 9)
 par(mfrow = c(2, 2), mar = c(5.5, 5, 5.5, 2.5), oma = c(0, 0, 3, 0), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 hist(sim_hap_frq_WFM[1, ], breaks = seq(min(sim_hap_frq_WFM[1, ], sim_hap_frq_WFD[1, ]), max(sim_hap_frq_WFM[1, ], sim_hap_frq_WFD[1, ]), length.out = 50), freq = FALSE, col = rgb(0.1, 0.1, 0.1, 0.5), 
      xlim = c(min(sim_hap_frq_WFM[1, ], sim_hap_frq_WFD[1, ]), max(sim_hap_frq_WFM[1, ], sim_hap_frq_WFD[1, ])), 
@@ -318,11 +315,11 @@ smp_hap_frq <- sim_HMM_WFM$smp_hap_cnt / sim_HMM_WFM$smp_chr_cnt
 pop_hap_frq <- sim_HMM_WFM$pop_hap_frq
 
 save(sel_cof_A, dom_par_A, sel_cof_B, dom_par_B, rec_rat, pop_siz, smp_gen, smp_chr_cnt, smp_hap_cnt, smp_hap_frq, pop_hap_frq, 
-     file = "./Output/Output v1.0/TEST_2L_PhasedChr_simulated_dataset.rda")
+     file = "TEST_2L_PhasedChr_simulated_dataset.rda")
 
-load("./Output/Output v1.0/TEST_2L_PhasedChr_simulated_dataset.rda")
+load("TEST_2L_PhasedChr_simulated_dataset.rda")
 
-pdf(file = "./Output/Output v1.0/TEST_PhasedChr_2L_simulated_dataset.pdf", width = 16, height = 9)
+pdf(file = "TEST_PhasedChr_2L_simulated_dataset.pdf", width = 16, height = 9)
 par(mfrow = c(2, 2), oma = c(0, 0, 3, 0), mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 k <- min(smp_gen):max(smp_gen)
 plot(k, pop_hap_frq[1, ], type = 'l', lwd = 1.5, 
@@ -378,11 +375,11 @@ smp_hap_frq <- sim_HMM_WFM$smp_hap_cnt / smp_chr_cnt
 pop_hap_frq <- sim_HMM_WFM$pop_hap_frq
 
 save(sel_cof_A, dom_par_A, sel_cof_B, dom_par_B, rec_rat, pop_siz, smp_gen, smp_chr_cnt, smp_ale_cnt, smp_ale_frq, pop_ale_frq, smp_hap_cnt, smp_hap_frq, pop_hap_frq, 
-     file = "./Output/Output v1.0/TEST_2L_UnphasedChr_simulated_dataset.rda")
+     file = "TEST_2L_UnphasedChr_simulated_dataset.rda")
 
-load("./Output/Output v1.0/TEST_2L_UnphasedChr_simulated_dataset.rda")
+load("TEST_2L_UnphasedChr_simulated_dataset.rda")
 
-pdf(file = "./Output/Output v1.0/TEST_2L_UnphasedChr_simulated_dataset.pdf", width = 16, height = 9)
+pdf(file = "TEST_2L_UnphasedChr_simulated_dataset.pdf", width = 16, height = 9)
 par(mfrow = c(1, 2), oma = c(0, 0, 3, 0), mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 k <- min(smp_gen):max(smp_gen)
 plot(k, pop_ale_frq[1, ], type = 'l', lwd = 1.5, 
@@ -409,7 +406,7 @@ dev.off()
 #' @param ptn_num the number of subintervals divided per generation in the Euler-Maruyama method
 #' @param pcl_num the number of particles generated in the bootstrap particle filter
 
-load("./Output/Output v1.0/TEST_2L_PhasedChr_simulated_dataset.rda")
+load("TEST_2L_PhasedChr_simulated_dataset.rda")
 
 set.seed(test_seed)
 
@@ -423,16 +420,16 @@ pcl_num <- 1e+06
 system.time(BPF <- cmprunBPF(gen_par, smp_gen, smp_chr_cnt, smp_hap_cnt, ptn_num, pcl_num))
 
 save(gen_par, smp_gen, smp_chr_cnt, smp_hap_cnt, smp_hap_frq, pop_hap_frq, ptn_num, pcl_num, BPF, 
-     file = "./Output/Output v1.0/TEST_2L_PhasedChr_BPF.rda")
+     file = "TEST_2L_PhasedChr_BPF.rda")
 
-load("./Output/Output v1.0/TEST_2L_PhasedChr_BPF.rda")
+load("TEST_2L_PhasedChr_BPF.rda")
 
 lik <- rep(1, pcl_num)
 wght <- BPF$wght
 for (k in 1:length(smp_gen)) {
   lik <- lik * (cumsum(wght[, k]) / (1:pcl_num))
 }
-pdf(file = "./Output/Output v1.0/TEST_2L_PhasedChr_BPF_likelihood.pdf", width = 16, height = 9)
+pdf(file = "TEST_2L_PhasedChr_BPF_likelihood.pdf", width = 16, height = 9)
 par(mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 plot(1:pcl_num, lik, type = 'l', 
      xlab = "Number of particles", ylab = "Likelihood", main = "Likelihood estimated with the bootstrap particle filter")
@@ -440,7 +437,7 @@ dev.off()
 
 pop_hap_frq_pre_resmp <- BPF$pop_frq_pre_resmp
 pop_hap_frq_pst_resmp <- BPF$pop_frq_pst_resmp
-pdf(file = "./Output/Output v1.0/TEST_2L_PhasedChr_BPF_particle.pdf", width = 16, height = 27)
+pdf(file = "TEST_2L_PhasedChr_BPF_particle.pdf", width = 16, height = 27)
 par(mfrow = c(6, 4), oma = c(0, 0, 3, 0), mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 for (k in 1:length(smp_gen)) {
   hist(pop_hap_frq_pst_resmp[1, , k], breaks = seq(min(pop_hap_frq_pst_resmp[1, , k], pop_hap_frq_pre_resmp[1, , k]), max(pop_hap_frq_pst_resmp[1, , k], pop_hap_frq_pre_resmp[1, , k]), length.out = 50), freq = FALSE, col = rgb(0.1, 0.1, 0.1, 0.5), 
@@ -469,7 +466,7 @@ dev.off()
 
 ####################
 
-load("./Output/Output v1.0/TEST_2L_UnphasedChr_simulated_dataset.rda")
+load("TEST_2L_UnphasedChr_simulated_dataset.rda")
 
 set.seed(test_seed)
 
@@ -483,16 +480,16 @@ pcl_num <- 1e+06
 system.time(BPF <- cmprunBPF(gen_par, smp_gen, smp_chr_cnt, smp_ale_cnt, ptn_num, pcl_num))
 
 save(gen_par, smp_gen, smp_chr_cnt, smp_hap_cnt, smp_hap_frq, pop_hap_frq, smp_ale_cnt, smp_ale_frq, pop_ale_frq, ptn_num, pcl_num, BPF, 
-     file = "./Output/Output v1.0/TEST_2L_UnphasedChr_BPF.rda")
+     file = "TEST_2L_UnphasedChr_BPF.rda")
 
-load("./Output/Output v1.0/TEST_2L_UnphasedChr_BPF.rda")
+load("TEST_2L_UnphasedChr_BPF.rda")
 
 lik <- rep(1, pcl_num)
 wght <- BPF$wght
 for (k in 1:length(smp_gen)) {
   lik <- lik * (cumsum(wght[, k]) / (1:pcl_num))
 }
-pdf(file = "./Output/Output v1.0/TEST_2L_UnphasedChr_BPF_likelihood.pdf", width = 16, height = 9)
+pdf(file = "TEST_2L_UnphasedChr_BPF_likelihood.pdf", width = 16, height = 9)
 par(mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 plot(1:pcl_num, lik, type = 'l', 
      xlab = "Number of particles", ylab = "Likelihood", main = "Likelihood estimated with the bootstrap particle filter")
@@ -500,7 +497,7 @@ dev.off()
 
 pop_ale_frq_pre_resmp <- BPF$pop_frq_pre_resmp
 pop_ale_frq_pst_resmp <- BPF$pop_frq_pst_resmp
-pdf(file = "./Output/Output v1.0/TEST_2L_UnphasedChr_BPF_particle.pdf", width = 16, height = 27)
+pdf(file = "TEST_2L_UnphasedChr_BPF_particle.pdf", width = 16, height = 27)
 par(mfrow = c(6, 2), oma = c(0, 0, 3, 0), mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 for (k in 1:length(smp_gen)) {
   hist(pop_ale_frq_pst_resmp[1, , k], breaks = seq(min(pop_ale_frq_pst_resmp[1, , k], pop_ale_frq_pre_resmp[1, , k]), max(pop_ale_frq_pst_resmp[1, , k], pop_ale_frq_pre_resmp[1, , k]), length.out = 50), freq = FALSE, col = rgb(0.1, 0.1, 0.1, 0.5), 
@@ -529,7 +526,7 @@ dev.off()
 #' @param pcl_num the number of particles generated in the bootstrap particle filter
 #' @param itn_num the number of the iterations carried out in the particle marginal Metropolis-Hastings
 
-load("./Output/Output v1.0/TEST_2L_PhasedChr_simulated_dataset.rda")
+load("TEST_2L_PhasedChr_simulated_dataset.rda")
 
 set.seed(test_seed)
 
@@ -546,13 +543,13 @@ itn_num <- 1e+05
 system.time(PMMH <- cmprunPMMH(int_gen_par, smp_gen, smp_chr_cnt, smp_hap_cnt, ptn_num, pcl_num, itn_num))
 
 save(gen_par, smp_gen, smp_chr_cnt, smp_hap_cnt, smp_hap_frq, pop_hap_frq, ptn_num, pcl_num, itn_num, PMMH, 
-     file = "./Output/Output v1.0/TEST_2L_PhasedChr_PMMH.rda")
+     file = "TEST_2L_PhasedChr_PMMH.rda")
 
-load("./Output/Output v1.0/TEST_2L_PhasedChr_PMMH.rda")
+load("TEST_2L_PhasedChr_PMMH.rda")
 
 sel_cof_A_chn <- PMMH$sel_cof_A_chn
 sel_cof_B_chn <- PMMH$sel_cof_B_chn
-pdf(file = "./Output/Output v1.0/TEST_2L_PhasedChr_PMMH_trace_plot.pdf", width = 16, height = 9)
+pdf(file = "TEST_2L_PhasedChr_PMMH_trace_plot.pdf", width = 16, height = 9)
 par(mfrow = c(2, 1), mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 plot(1:itn_num, sel_cof_A_chn[1:itn_num], type = 'l', 
      xlab = "Iteration", ylab = "Selection coefficient", main = "Trace plot of the selection coefficient at locus A")
@@ -572,7 +569,7 @@ sel_cof_B_chn <- sel_cof_B_chn[(1:round(length(sel_cof_B_chn) / thn_num)) * thn_
 
 grd_num <- 5e+02
 sel_cof_pdf <- kde2d(sel_cof_A_chn, sel_cof_B_chn, n = grd_num)
-pdf(file = "./Output/Output v1.0/TEST_2L_PhasedChr_PMMH_posterior.pdf", width = 16, height = 9)
+pdf(file = "TEST_2L_PhasedChr_PMMH_posterior.pdf", width = 16, height = 9)
 par(mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 image(sel_cof_pdf, col = colorRampPalette(rev(brewer.pal(11, 'Spectral')))(32), 
       xlab = "Selection coefficient at locus A", ylab = "Selection coefficient at locus B", 
@@ -583,7 +580,7 @@ dev.off()
 
 ####################
 
-load("./Output/Output v1.0/TEST_2L_UnphasedChr_simulated_dataset.rda")
+load("TEST_2L_UnphasedChr_simulated_dataset.rda")
 
 set.seed(test_seed)
 
@@ -598,13 +595,13 @@ itn_num <- 1e+05
 system.time(PMMH <- cmprunPMMH(int_gen_par, smp_gen, smp_chr_cnt, smp_ale_cnt, ptn_num, pcl_num, itn_num))
 
 save(gen_par, smp_gen, smp_chr_cnt, smp_hap_cnt, smp_hap_frq, pop_hap_frq, smp_ale_cnt, smp_ale_frq, pop_ale_frq, ptn_num, pcl_num, itn_num, PMMH, 
-     file = "./Output/Output v1.0/TEST_2L_UnphasedChr_PMMH.rda")
+     file = "TEST_2L_UnphasedChr_PMMH.rda")
 
-load("./Output/Output v1.0/TEST_2L_UnphasedChr_PMMH.rda")
+load("TEST_2L_UnphasedChr_PMMH.rda")
 
 sel_cof_A_chn <- PMMH$sel_cof_A_chn
 sel_cof_B_chn <- PMMH$sel_cof_B_chn
-pdf(file = "./Output/Output v1.0/TEST_2L_UnphasedChr_PMMH_trace_plot.pdf", width = 16, height = 9)
+pdf(file = "TEST_2L_UnphasedChr_PMMH_trace_plot.pdf", width = 16, height = 9)
 par(mfrow = c(2, 1), mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 plot(1:itn_num, sel_cof_A_chn[1:itn_num], type = 'l', 
      xlab = "Iteration", ylab = "Selection coefficient", main = "Trace plot of the selection coefficient at locus A")
@@ -624,7 +621,7 @@ sel_cof_B_chn <- sel_cof_B_chn[(1:round(length(sel_cof_B_chn) / thn_num)) * thn_
 
 grd_num <- 5e+02
 sel_cof_pdf <- kde2d(sel_cof_A_chn, sel_cof_B_chn, n = grd_num)
-pdf(file = "./Output/Output v1.0/TEST_2L_UnphasedChr_PMMH_posterior.pdf", width = 16, height = 9)
+pdf(file = "TEST_2L_UnphasedChr_PMMH_posterior.pdf", width = 16, height = 9)
 par(mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 image(sel_cof_pdf, col = colorRampPalette(rev(brewer.pal(11, 'Spectral')))(32), 
       xlab = "Selection coefficient at locus A", ylab = "Selection coefficient at locus B", 
@@ -648,7 +645,7 @@ dev.off()
 #' @param thn_num the number of the iterations for thinning
 #' @param grd_num the number of the grids in the kernel density estimation
 
-load("./Output/Output v1.0/TEST_2L_PhasedChr_simulated_dataset.rda")
+load("TEST_2L_PhasedChr_simulated_dataset.rda")
 
 set.seed(test_seed)
 
@@ -668,9 +665,9 @@ grd_num <- 5e+02
 system.time(BayesianProcedure <- cmprunBayesianProcedure(int_gen_par, smp_gen, smp_chr_cnt, smp_hap_cnt, ptn_num, pcl_num, itn_num, brn_num, thn_num, grd_num))
 
 save(gen_par, smp_gen, smp_chr_cnt, smp_hap_cnt, smp_hap_frq, pop_hap_frq, ptn_num, pcl_num, itn_num, brn_num, thn_num, grd_num, BayesianProcedure, 
-     file = "./Output/Output v1.0/TEST_2L_PhasedChr_BayesianProcedure.rda")
+     file = "TEST_2L_PhasedChr_BayesianProcedure.rda")
 
-load("./Output/Output v1.0/TEST_2L_PhasedChr_BayesianProcedure.rda")
+load("TEST_2L_PhasedChr_BayesianProcedure.rda")
 
 sel_cof_A_chn <- BayesianProcedure$sel_cof_A_chn
 sel_cof_B_chn <- BayesianProcedure$sel_cof_B_chn
@@ -681,7 +678,7 @@ sel_cof_A_mmse <- BayesianProcedure$sel_cof_A_mmse
 sel_cof_B_mmse <- BayesianProcedure$sel_cof_B_mmse
 sel_cof_B_hpd <- BayesianProcedure$sel_cof_B_hpd
 sel_cof_A_hpd <- BayesianProcedure$sel_cof_A_hpd
-pdf(file = "./Output/Output v1.0/TEST_2L_PhasedChr_BayesianProcedure_posterior.pdf", width = 16, height = 9)
+pdf(file = "TEST_2L_PhasedChr_BayesianProcedure_posterior.pdf", width = 16, height = 9)
 par(mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 layout(matrix(c(1, 1, 2, 3), nrow = 2, ncol = 2))
 image(sel_cof_pdf, col = colorRampPalette(rev(brewer.pal(11, 'Spectral')))(32), 
@@ -713,7 +710,7 @@ dev.off()
 
 ####################
 
-load("./Output/Output v1.0/TEST_2L_UnphasedChr_simulated_dataset.rda")
+load("TEST_2L_UnphasedChr_simulated_dataset.rda")
 
 set.seed(test_seed)
 
@@ -733,9 +730,9 @@ grd_num <- 5e+02
 system.time(BayesianProcedure <- cmprunBayesianProcedure(int_gen_par, smp_gen, smp_chr_cnt, smp_ale_cnt, ptn_num, pcl_num, itn_num, brn_num, thn_num, grd_num))
 
 save(gen_par, smp_gen, smp_chr_cnt, smp_hap_cnt, smp_hap_frq, pop_hap_frq, smp_ale_cnt, smp_ale_frq, pop_ale_frq, ptn_num, pcl_num, itn_num, brn_num, thn_num, grd_num, BayesianProcedure, 
-     file = "./Output/Output v1.0/TEST_2L_UnphasedChr_BayesianProcedure.rda")
+     file = "TEST_2L_UnphasedChr_BayesianProcedure.rda")
 
-load("./Output/Output v1.0/TEST_2L_UnphasedChr_BayesianProcedure.rda")
+load("TEST_2L_UnphasedChr_BayesianProcedure.rda")
 
 sel_cof_A_chn <- BayesianProcedure$sel_cof_A_chn
 sel_cof_B_chn <- BayesianProcedure$sel_cof_B_chn
@@ -746,7 +743,7 @@ sel_cof_A_mmse <- BayesianProcedure$sel_cof_A_mmse
 sel_cof_B_mmse <- BayesianProcedure$sel_cof_B_mmse
 sel_cof_B_hpd <- BayesianProcedure$sel_cof_B_hpd
 sel_cof_A_hpd <- BayesianProcedure$sel_cof_A_hpd
-pdf(file = "./Output/Output v1.0/TEST_2L_UnphasedChr_BayesianProcedure_posterior.pdf", width = 16, height = 9)
+pdf(file = "TEST_2L_UnphasedChr_BayesianProcedure_posterior.pdf", width = 16, height = 9)
 par(mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 layout(matrix(c(1, 1, 2, 3), nrow = 2, ncol = 2))
 image(sel_cof_pdf, col = colorRampPalette(rev(brewer.pal(11, 'Spectral')))(32), 
