@@ -1,6 +1,8 @@
 // An MCMC-based method for Bayesian inference of natural selection from time series DNA data across linked loci
 // Zhangyi He, Xiaoyang Dai, Mark Beaumont and Feng Yu
 
+// this version is unable to handle missing values in DNA data
+
 // C functions
 
 #define ARMA_64BIT_WORD 1
