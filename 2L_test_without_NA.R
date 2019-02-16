@@ -1,7 +1,7 @@
 #' @title An MCMC-based method for Bayesian inference of natural selection from time series DNA data across linked loci
 #' @author Zhangyi He, Xiaoyang Dai, Mark Beaumont and Feng Yu
 
-source("2L_rfun_without_missingness.R")
+source("2L_rfun_without_NA.R")
 
 #install.packages("RColorBrewer")
 library("RColorBrewer")
