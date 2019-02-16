@@ -1,10 +1,7 @@
 #' @title An MCMC-based method for Bayesian inference of natural selection from time series DNA data across linked loci
 #' @author Zhangyi He, Xiaoyang Dai, Mark Beaumont and Feng Yu
 
-# set the directory
-setwd("~/Dropbox/Jeffery He/iResearch/Publications/2016/HE2019-2L-WFD-PMMH-Horse-PLoSGenet")
-
-source("./Code/Code v1.0/HE2016_rfun_1L.R")
+source("1L_rfun_without_missingness.R")
 
 #install.packages("RColorBrewer")
 library("RColorBrewer")
@@ -89,11 +86,11 @@ for (i in 1:sim_num) {
 }
 
 save(sel_cof, sel_cof, pop_siz, int_ale_frq, int_gen, lst_gen, ptn_num, sim_num, sim_ale_frq_WFM, sim_ale_frq_WFD, 
-     file = "./Output/Output v1.0/TEST_1L_comparison_WFM_and_WFD.rda")
+     file = "TEST_1L_comparison_WFM_and_WFD.rda")
 
-load("./Output/Output v1.0/TEST_1L_comparison_WFM_and_WFD.rda")
+load("TEST_1L_comparison_WFM_and_WFD.rda")
 
-pdf(file = "./Output/Output v1.0/TEST_1L_comparison_WFM_and_WFD.pdf", width = 16, height = 9)
+pdf(file = "TEST_1L_comparison_WFM_and_WFD.pdf", width = 16, height = 9)
 par(mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 hist(sim_ale_frq_WFM, breaks = seq(min(sim_ale_frq_WFM, sim_ale_frq_WFD), max(sim_ale_frq_WFM, sim_ale_frq_WFD), length.out = 50), freq = FALSE, col = rgb(0.1, 0.1, 0.1, 0.5), 
      xlim = c(min(sim_ale_frq_WFM, sim_ale_frq_WFD), max(sim_ale_frq_WFM, sim_ale_frq_WFD)), 
@@ -185,11 +182,11 @@ smp_ale_frq <- sim_HMM_WFM$smp_ale_cnt / sim_HMM_WFM$smp_chr_cnt
 pop_ale_frq <- sim_HMM_WFM$pop_ale_frq
 
 save(sel_cof, dom_par, pop_siz, smp_gen, smp_chr_cnt, smp_ale_cnt, smp_ale_frq, pop_ale_frq, 
-     file = "./Output/Output v1.0/TEST_1L_simulated_dataset.rda")
+     file = "TEST_1L_simulated_dataset.rda")
 
-load("./Output/Output v1.0/TEST_1L_simulated_dataset.rda")
+load("TEST_1L_simulated_dataset.rda")
 
-pdf(file = "./Output/Output v1.0/TEST_1L_simulated_dataset.pdf", width = 16, height = 9)
+pdf(file = "TEST_1L_simulated_dataset.pdf", width = 16, height = 9)
 par(mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 k <- min(smp_gen):max(smp_gen)
 plot(k, pop_ale_frq, type = 'l', lwd = 1.5, 
@@ -209,7 +206,7 @@ dev.off()
 #' @param ptn_num the number of the subintervals divided per generation in the Euler-Maruyama method
 #' @param pcl_num the number of the particles generated in the bootstrap particle filter
 
-load("./Output/Output v1.0/TEST_1L_simulated_dataset.rda")
+load("TEST_1L_simulated_dataset.rda")
 
 set.seed(test_seed)
 
@@ -223,16 +220,16 @@ pcl_num <- 1e+06
 system.time(BPF <- cmprunBPF(gen_par, smp_gen, smp_chr_cnt, smp_ale_cnt, ptn_num, pcl_num))
 
 save(gen_par, smp_gen, smp_chr_cnt, smp_ale_cnt, smp_ale_frq, pop_ale_frq, ptn_num, pcl_num, BPF, 
-     file = "./Output/Output v1.0/TEST_1L_BPF.rda")
+     file = "TEST_1L_BPF.rda")
 
-load("./Output/Output v1.0/TEST_1L_BPF.rda")
+load("TEST_1L_BPF.rda")
 
 lik <- rep(1, pcl_num)
 wght <- BPF$wght
 for (k in 1:length(smp_gen)) {
   lik <- lik * (cumsum(wght[, k]) / (1:pcl_num))
 }
-pdf(file = "./Output/Output v1.0/TEST_1L_BPF_likelihood.pdf", width = 16, height = 9)
+pdf(file = "TEST_1L_BPF_likelihood.pdf", width = 16, height = 9)
 par(mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 plot(1:pcl_num, lik, type = 'l', 
      xlab = "Number of particles", ylab = "Likelihood", main = "Likelihood estimated with the bootstrap particle filter")
@@ -240,7 +237,7 @@ dev.off()
 
 pop_ale_frq_pre_resmp <- BPF$pop_frq_pre_resmp
 pop_ale_frq_pst_resmp <- BPF$pop_frq_pst_resmp
-pdf(file = "./Output/Output v1.0/TEST_1L_BPF_particle.pdf", width = 16, height = 9)
+pdf(file = "TEST_1L_BPF_particle.pdf", width = 16, height = 9)
 par(mfrow = c(2, 3), oma = c(0, 0, 3, 0), mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 for (k in 1:length(smp_gen)) {
   hist(pop_ale_frq_pst_resmp[, k], breaks = seq(min(pop_ale_frq_pst_resmp[, k], pop_ale_frq_pre_resmp[, k]), max(pop_ale_frq_pst_resmp[, k], pop_ale_frq_pre_resmp[, k]), length.out = 50), freq = FALSE, col = rgb(0.1, 0.1, 0.1, 0.5), 
@@ -264,7 +261,7 @@ dev.off()
 #' @param pcl_num the number of the particles generated in the bootstrap particle filter
 #' @param itn_num the number of the iterations carried out in the particle marginal Metropolis-Hastings
 
-load("./Output/Output v1.0/TEST_1L_simulated_dataset.rda")
+load("TEST_1L_simulated_dataset.rda")
 
 set.seed(test_seed)
 
@@ -281,12 +278,12 @@ itn_num <- 1e+05
 system.time(PMMH <- cmprunPMMH(int_gen_par, smp_gen, smp_chr_cnt, smp_ale_cnt, ptn_num, pcl_num, itn_num))
 
 save(gen_par, smp_gen, smp_chr_cnt, smp_ale_cnt, smp_ale_frq, pop_ale_frq, ptn_num, pcl_num, itn_num, PMMH, 
-     file = "./Output/Output v1.0/TEST_1L_PMMH.rda")
+     file = "TEST_1L_PMMH.rda")
 
-load("./Output/Output v1.0/TEST_1L_PMMH.rda")
+load("TEST_1L_PMMH.rda")
 
 sel_cof_chn <- PMMH$sel_cof_chn
-pdf(file = "./Output/Output v1.0/TEST_1L_PMMH_trace_plot.pdf", width = 16, height = 9)
+pdf(file = "TEST_1L_PMMH_trace_plot.pdf", width = 16, height = 9)
 par(mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 plot(1:itn_num, sel_cof_chn[1:itn_num], type = 'l', 
      xlab = "Iteration", ylab = "Selection coefficient", main = "Trace plot of the selection coefficient")
@@ -301,7 +298,7 @@ sel_cof_chn <- sel_cof_chn[(1:round(length(sel_cof_chn) / thn_num)) * thn_num]
 
 grd_num <- 1e+03
 sel_cof_pdf <- density(sel_cof_chn, n = grd_num)
-pdf(file = "./Output/Output v1.0/TEST_1L_PMMH_posterior.pdf", width = 16, height = 9)
+pdf(file = "TEST_1L_PMMH_posterior.pdf", width = 16, height = 9)
 par(mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 hist(sel_cof_chn, breaks = seq(min(sel_cof_chn), max(sel_cof_chn), length.out = 50), freq = FALSE,
      xlab = "Selection coefficient", main = "Posterior for the selection coefficient")
@@ -324,7 +321,7 @@ dev.off()
 #' @param thn_num the number of the iterations for thinning
 #' @param grd_num the number of the grids in the kernel density estimation
 
-load("./Output/Output v1.0/TEST_1L_simulated_dataset.rda")
+load("TEST_1L_simulated_dataset.rda")
 
 set.seed(test_seed)
 
@@ -344,16 +341,16 @@ grd_num <- 1e+03
 system.time(BayesianProcedure <- cmprunBayesianProcedure(int_gen_par, smp_gen, smp_chr_cnt, smp_ale_cnt, ptn_num, pcl_num, itn_num, brn_num, thn_num, grd_num))
 
 save(gen_par, smp_gen, smp_chr_cnt, smp_ale_cnt, smp_ale_frq, pop_ale_frq, ptn_num, pcl_num, itn_num, brn_num, thn_num, grd_num, BayesianProcedure, 
-     file = "./Output/Output v1.0/TEST_1L_BayesianProcedure.rda")
+     file = "TEST_1L_BayesianProcedure.rda")
 
-load("./Output/Output v1.0/TEST_1L_BayesianProcedure.rda")
+load("TEST_1L_BayesianProcedure.rda")
 
 sel_cof_chn <- BayesianProcedure$sel_cof_chn
 sel_cof_pdf <- BayesianProcedure$sel_cof_pdf
 sel_cof_map <- BayesianProcedure$sel_cof_map
 sel_cof_mmse <- BayesianProcedure$sel_cof_mmse
 sel_cof_hpd <- BayesianProcedure$sel_cof_hpd
-pdf(file = "./Output/Output v1.0/TEST_1L_BayesianProcedure_posterior.pdf", width = 16, height = 9)
+pdf(file = "TEST_1L_BayesianProcedure_posterior.pdf", width = 16, height = 9)
 par(mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 hist(sel_cof_chn, breaks = seq(min(sel_cof_chn), max(sel_cof_chn), length.out = 50), freq = FALSE,
      xlab = "Selection coefficient", main = "Posterior for the selection coefficient")
