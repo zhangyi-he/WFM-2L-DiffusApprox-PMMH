@@ -540,7 +540,7 @@ smp_chr_cnt
 smp_hap_cnt
 ptn_num <- 1e+01
 pcl_num <- 1e+03
-itn_num <- 1e+05
+itn_num <- 2e+05
 
 system.time(PMMH <- cmprunPMMH(int_gen_par, smp_gen, smp_chr_cnt, smp_hap_cnt, ptn_num, pcl_num, itn_num))
 
@@ -561,7 +561,7 @@ plot(1:itn_num, sel_cof_B_chn[1:itn_num], type = 'l',
 abline(h = gen_par[3], col = 'red', lty = 2, lwd = 2)
 dev.off()
 
-brn_num <- 1e+04
+brn_num <- 2e+04
 sel_cof_A_chn <- sel_cof_A_chn[brn_num:length(sel_cof_A_chn)]
 sel_cof_B_chn <- sel_cof_B_chn[brn_num:length(sel_cof_B_chn)]
 
@@ -569,7 +569,7 @@ thn_num <- 9e+00
 sel_cof_A_chn <- sel_cof_A_chn[(1:round(length(sel_cof_A_chn) / thn_num)) * thn_num]
 sel_cof_B_chn <- sel_cof_B_chn[(1:round(length(sel_cof_B_chn) / thn_num)) * thn_num]
 
-grd_num <- 5e+02
+grd_num <- 1e+03
 sel_cof_pdf <- kde2d(sel_cof_A_chn, sel_cof_B_chn, n = grd_num)
 pdf(file = "TEST_2L_PhasedChr_PMMH_posterior.pdf", width = 16, height = 9)
 par(mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
@@ -592,7 +592,7 @@ smp_chr_cnt
 smp_ale_cnt
 ptn_num <- 1e+01
 pcl_num <- 1e+03
-itn_num <- 1e+05
+itn_num <- 2e+05
 
 system.time(PMMH <- cmprunPMMH(int_gen_par, smp_gen, smp_chr_cnt, smp_ale_cnt, ptn_num, pcl_num, itn_num))
 
@@ -613,7 +613,7 @@ plot(1:itn_num, sel_cof_B_chn[1:itn_num], type = 'l',
 abline(h = gen_par[3], col = 'red', lty = 2, lwd = 2)
 dev.off()
 
-brn_num <- 1e+04
+brn_num <- 2e+04
 sel_cof_A_chn <- sel_cof_A_chn[brn_num:length(sel_cof_A_chn)]
 sel_cof_B_chn <- sel_cof_B_chn[brn_num:length(sel_cof_B_chn)]
 
@@ -621,7 +621,7 @@ thn_num <- 9e+00
 sel_cof_A_chn <- sel_cof_A_chn[(1:round(length(sel_cof_A_chn) / thn_num)) * thn_num]
 sel_cof_B_chn <- sel_cof_B_chn[(1:round(length(sel_cof_B_chn) / thn_num)) * thn_num]
 
-grd_num <- 5e+02
+grd_num <- 1e+03
 sel_cof_pdf <- kde2d(sel_cof_A_chn, sel_cof_B_chn, n = grd_num)
 pdf(file = "TEST_2L_UnphasedChr_PMMH_posterior.pdf", width = 16, height = 9)
 par(mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
@@ -659,10 +659,10 @@ smp_chr_cnt
 smp_hap_cnt
 ptn_num <- 1e+01
 pcl_num <- 1e+03
-itn_num <- 1e+05
-brn_num <- 1e+04
+itn_num <- 2e+05
+brn_num <- 2e+04
 thn_num <- 9e+00
-grd_num <- 5e+02
+grd_num <- 1e+03
 
 system.time(BayesianProcedure <- cmprunBayesianProcedure(int_gen_par, smp_gen, smp_chr_cnt, smp_hap_cnt, ptn_num, pcl_num, itn_num, brn_num, thn_num, grd_num))
 
@@ -724,10 +724,10 @@ smp_chr_cnt
 smp_ale_cnt
 ptn_num <- 1e+01
 pcl_num <- 1e+03
-itn_num <- 1e+05
-brn_num <- 1e+04
+itn_num <- 2e+05
+brn_num <- 2e+04
 thn_num <- 9e+00
-grd_num <- 5e+02
+grd_num <- 1e+03
 
 system.time(BayesianProcedure <- cmprunBayesianProcedure(int_gen_par, smp_gen, smp_chr_cnt, smp_ale_cnt, ptn_num, pcl_num, itn_num, brn_num, thn_num, grd_num))
 
