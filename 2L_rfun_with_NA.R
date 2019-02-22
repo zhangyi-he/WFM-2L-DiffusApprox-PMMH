@@ -120,10 +120,10 @@ simulateHMM <- function(model, phased, missing, sel_cof_A, dom_par_A, sel_cof_B,
       smp_ale_cnt <- matrix(NA, nrow = 2, ncol = length(smp_gen))
       for (k in 1:length(smp_gen)) {
         smp_hap_cnt[, k] <- rmultinom(1, size = smp_chr_cnt[k], prob = pop_hap_frq[, smp_gen[k] - int_gen + 1])
-        mis_ale_cnt[1, k] <- sample(0:round(smp_chr_cnt[k] / 4 / k), size = 1)
+        mis_ale_cnt[1, k] <- sample(0:round(smp_chr_cnt[k] / 10 / k), size = 1)
         smp_ale_cnt[1, k] <- smp_hap_cnt[1, k] + smp_hap_cnt[2, k]
         smp_ale_cnt[1, k] <- smp_ale_cnt[1, k] - sample(0:min(smp_ale_cnt[1, k], mis_ale_cnt[1, k]), size = 1)
-        mis_ale_cnt[2, k] <- sample(0:round(smp_chr_cnt[k] / 4 / k), size = 1)
+        mis_ale_cnt[2, k] <- sample(0:round(smp_chr_cnt[k] / 10 / k), size = 1)
         smp_ale_cnt[2, k] <- smp_hap_cnt[1, k] + smp_hap_cnt[3, k]
         smp_ale_cnt[2, k] <- smp_ale_cnt[2, k] - sample(0:min(smp_ale_cnt[2, k], mis_ale_cnt[2, k]), size = 1)
       }
@@ -159,7 +159,7 @@ simulateHMM <- function(model, phased, missing, sel_cof_A, dom_par_A, sel_cof_B,
       mis_hap_cnt <- matrix(NA, nrow = 5, ncol = length(smp_gen))
       smp_hap_cnt <- matrix(NA, nrow = 4, ncol = length(smp_gen))
       for (k in 1:length(smp_gen)) {
-        mis_hap_cnt[, k] <- rmultinom(1, size = round(smp_chr_cnt[k] / 4 / k), prob = rep(0.25, 5))
+        mis_hap_cnt[, k] <- rmultinom(1, size = round(smp_chr_cnt[k] / 10 / k), prob = rep(0.25, 5))
         smp_hap_cnt[, k] <- rmultinom(1, size = smp_chr_cnt[k], prob = pop_hap_frq[, smp_gen[k] - int_gen + 1])
         for (i in 1:4) {
           smp_hap_cnt[i, k] <- smp_hap_cnt[i, k] - sample(0:min(smp_hap_cnt[i, k], mis_hap_cnt[i, k]), size = 1)
