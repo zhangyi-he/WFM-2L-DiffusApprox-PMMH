@@ -92,7 +92,7 @@ save(sel_cof, sel_cof, pop_siz, int_ale_frq, int_gen, lst_gen, ptn_num, sim_num,
 
 load("TEST_1L_comparison_WFM_and_WFD.rda")
 
-pdf(file = "TEST_1L_comparison_WFM_and_WFD.pdf", width = 16, height = 9)
+pdf(file = "TEST_1L_comparison_WFM_and_WFD.pdf", width = 20, height = 10)
 par(mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 hist(sim_ale_frq_WFM, breaks = seq(min(sim_ale_frq_WFM, sim_ale_frq_WFD), max(sim_ale_frq_WFM, sim_ale_frq_WFD), length.out = 50), freq = FALSE, col = rgb(0.1, 0.1, 0.1, 0.5), 
      xlim = c(min(sim_ale_frq_WFM, sim_ale_frq_WFD), max(sim_ale_frq_WFM, sim_ale_frq_WFD)), 
@@ -165,7 +165,7 @@ points(smp_gen, smp_ale_frq, col = 'red', pch = 17, cex = 1)
 ################################################################################
 
 #' Generate a simulated dataset under the Wright-Fisher model
-test_seed <- 21
+test_seed <- 1
 set.seed(test_seed)
 
 model <- "WFM"
@@ -188,7 +188,7 @@ save(sel_cof, dom_par, pop_siz, smp_gen, smp_chr_cnt, smp_ale_cnt, smp_ale_frq, 
 
 load("TEST_1L_simulated_dataset.rda")
 
-pdf(file = "TEST_1L_simulated_dataset.pdf", width = 16, height = 9)
+pdf(file = "TEST_1L_simulated_dataset.pdf", width = 10, height = 10)
 par(mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 k <- min(smp_gen):max(smp_gen)
 plot(k, pop_ale_frq, type = 'l', lwd = 1.5, 
@@ -231,7 +231,7 @@ wght <- BPF$wght
 for (k in 1:length(smp_gen)) {
   lik <- lik * (cumsum(wght[, k]) / (1:pcl_num))
 }
-pdf(file = "TEST_1L_BPF_likelihood.pdf", width = 16, height = 9)
+pdf(file = "TEST_1L_BPF_likelihood.pdf", width = 20, height = 10)
 par(mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 plot(1:pcl_num, lik, type = 'l', 
      xlab = "Number of particles", ylab = "Likelihood", main = "Likelihood estimated with the bootstrap particle filter")
@@ -239,7 +239,7 @@ dev.off()
 
 pop_ale_frq_pre_resmp <- BPF$pop_frq_pre_resmp
 pop_ale_frq_pst_resmp <- BPF$pop_frq_pst_resmp
-pdf(file = "TEST_1L_BPF_particle.pdf", width = 16, height = 9)
+pdf(file = "TEST_1L_BPF_particle.pdf", width = 20, height = 10)
 par(mfrow = c(2, 3), oma = c(0, 0, 3, 0), mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 for (k in 1:length(smp_gen)) {
   hist(pop_ale_frq_pst_resmp[, k], breaks = seq(min(pop_ale_frq_pst_resmp[, k], pop_ale_frq_pre_resmp[, k]), max(pop_ale_frq_pst_resmp[, k], pop_ale_frq_pre_resmp[, k]), length.out = 50), freq = FALSE, col = rgb(0.1, 0.1, 0.1, 0.5), 
@@ -285,7 +285,7 @@ save(gen_par, smp_gen, smp_chr_cnt, smp_ale_cnt, smp_ale_frq, pop_ale_frq, ptn_n
 load("TEST_1L_PMMH.rda")
 
 sel_cof_chn <- PMMH$sel_cof_chn
-pdf(file = "TEST_1L_PMMH_trace_plot.pdf", width = 16, height = 9)
+pdf(file = "TEST_1L_PMMH_trace_plot.pdf", width = 20, height = 5)
 par(mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 plot(1:itn_num, sel_cof_chn[1:itn_num], type = 'l', 
      xlab = "Iteration", ylab = "Selection coefficient", main = "Trace plot of the selection coefficient")
@@ -300,7 +300,7 @@ sel_cof_chn <- sel_cof_chn[(1:round(length(sel_cof_chn) / thn_num)) * thn_num]
 
 grd_num <- 1e+03
 sel_cof_pdf <- density(sel_cof_chn, n = grd_num)
-pdf(file = "TEST_1L_PMMH_posterior.pdf", width = 16, height = 9)
+pdf(file = "TEST_1L_PMMH_posterior.pdf", width = 10, height = 10)
 par(mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 hist(sel_cof_chn, breaks = seq(min(sel_cof_chn), max(sel_cof_chn), length.out = 50), freq = FALSE,
      xlab = "Selection coefficient", main = "Posterior for the selection coefficient")
@@ -352,7 +352,7 @@ sel_cof_pdf <- BayesianProcedure$sel_cof_pdf
 sel_cof_map <- BayesianProcedure$sel_cof_map
 sel_cof_mmse <- BayesianProcedure$sel_cof_mmse
 sel_cof_hpd <- BayesianProcedure$sel_cof_hpd
-pdf(file = "TEST_1L_BayesianProcedure_posterior.pdf", width = 16, height = 9)
+pdf(file = "TEST_1L_BayesianProcedure_posterior.pdf", width = 10, height = 10)
 par(mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 hist(sel_cof_chn, breaks = seq(min(sel_cof_chn), max(sel_cof_chn), length.out = 50), freq = FALSE,
      xlab = "Selection coefficient", main = "Posterior for the selection coefficient")
