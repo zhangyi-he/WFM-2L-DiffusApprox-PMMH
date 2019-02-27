@@ -1,2 +1,2 @@
 # 2L-WFD-PMMH
-Source code implementing for an MCMC-based method for Bayesian inference of natural selection from time series genetic data across linked loci is available.
+Source code is implemented for an MCMC-based method for Bayesian inference of natural selection from time series genetic data across linked loci, and the manuscript is available at the following link: https://www.biorxiv.org/content/10.1101/562967v1?rss=1.
