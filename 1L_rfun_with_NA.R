@@ -216,9 +216,10 @@ runBayesianProcedure <- function(int_gen_par, smp_gen, smp_chr_cnt, smp_ale_cnt,
   int_dom_par <- int_gen_par[2]
   int_pop_siz <- int_gen_par[3]
   
-  # run the PMMH with burn-in and thinning
+  # run the PMMH
   PMMH <- runPMMH_arma(int_sel_cof, int_dom_par, int_pop_siz, smp_gen, smp_chr_cnt, smp_ale_cnt, mis_ale_cnt, ptn_num, pcl_num, itn_num)
   
+  # burn-in and thinning
   sel_cof_chn <- as.vector(PMMH$sel_cof_chn)
   sel_cof_chn <- sel_cof_chn[brn_num:length(sel_cof_chn)]
   sel_cof_chn <- sel_cof_chn[(1:round(length(sel_cof_chn) / thn_num)) * thn_num]
