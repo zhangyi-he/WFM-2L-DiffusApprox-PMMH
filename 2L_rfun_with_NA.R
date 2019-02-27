@@ -308,7 +308,7 @@ runBayesianProcedure <- function(int_gen_par, smp_gen, smp_chr_cnt, smp_cnt, mis
   int_rec_rat <- int_gen_par[5]
   int_pop_siz <- int_gen_par[6]
   
-  # run the PMMH with burn-in and thinning
+  # run the PMMH
   phased <- ifelse(nrow(smp_cnt) == 4, TRUE, FALSE)
   if (phased) {
     PMMH <- runPMMH_PhasedChr_arma(int_sel_cof_A, int_dom_par_A, int_sel_cof_B, int_dom_par_B, int_rec_rat, int_pop_siz, smp_gen, smp_chr_cnt, smp_cnt, mis_cnt, ptn_num, pcl_num, itn_num)
@@ -316,6 +316,7 @@ runBayesianProcedure <- function(int_gen_par, smp_gen, smp_chr_cnt, smp_cnt, mis
     PMMH <- runPMMH_UnphasedChr_arma(int_sel_cof_A, int_dom_par_A, int_sel_cof_B, int_dom_par_B, int_rec_rat, int_pop_siz, smp_gen, smp_chr_cnt, smp_cnt, mis_cnt, ptn_num, pcl_num, itn_num)
   }
   
+  # burn-in and thinning
   sel_cof_A_chn <- as.vector(PMMH$sel_cof_A_chn)
   sel_cof_A_chn <- sel_cof_A_chn[brn_num:length(sel_cof_A_chn)]
   sel_cof_A_chn <- sel_cof_A_chn[(1:round(length(sel_cof_A_chn) / thn_num)) * thn_num]
