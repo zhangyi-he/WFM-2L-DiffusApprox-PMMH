@@ -219,7 +219,7 @@ double calculateMultinomProb_arma(const arma::icolvec& smp_cnt, const int& smp_s
   }
 }
 
-// Calculate the emission probabilities\
+// Calculate the emission probabilities
 // [[Rcpp::export]]
 double calculateEmissionProb_arma(const arma::icolvec& smp_cnt, const arma::icolvec& smp_ale_cnt, const arma::icolvec& smp_hap_cnt, const int& smp_siz, const arma::dcolvec& pop_hap_frq, const double& phi) {
   // ensure RNG gets set/reset
