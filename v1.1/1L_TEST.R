@@ -391,7 +391,7 @@ sel_cof_chn <- sel_cof_chn[(1:round(length(sel_cof_chn) / thn_num)) * thn_num]
 
 grd_num <- 1e+03
 sel_cof_pdf <- density(sel_cof_chn, n = grd_num)
-pdf(file = "TEST_1L_PMMH_posterior.pdf", width = 10, height = 10)
+pdf(file = "TEST_1L_PMMH_Posterior.pdf", width = 10, height = 10)
 par(mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 hist(sel_cof_chn, breaks = seq(min(sel_cof_chn), max(sel_cof_chn), length.out = 50), freq = FALSE,
      xlab = "Selection coefficient", 
