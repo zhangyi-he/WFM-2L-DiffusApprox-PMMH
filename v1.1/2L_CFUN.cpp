@@ -271,6 +271,7 @@ List runBPF_arma(const double& sel_cof_A, const double& dom_par_A, const double&
   if (phi == 0) {
     // initialise the particles
     cout << "generation: " << smp_gen(0) << endl;
+    wght_tmp = arma::zeros<arma::dcolvec>(pcl_num);
     part_tmp = initialiseParticle(pcl_num);
     arma::imat smp_hap_cnt = calculateHaploCnt_arma(smp_siz(0), smp_cnt.col(0));
     for (arma::uword i = 0; i < pcl_num; i++) {
@@ -334,6 +335,7 @@ List runBPF_arma(const double& sel_cof_A, const double& dom_par_A, const double&
   } else {
     // initialise the particles
     cout << "generation: " << smp_gen(0) << endl;
+    wght_tmp = arma::zeros<arma::dcolvec>(pcl_num);
     part_tmp = initialiseParticle(pcl_num);
     arma::imat smp_hap_cnt = calculateHaploCnt_arma(smp_siz(0), smp_cnt.col(0));
     arma::imat smp_ale_cnt = smp_hap_cnt;
@@ -684,4 +686,3 @@ List runPMMH_arma(const double& sel_cof_A, const double& dom_par_A, const double
                       Named("sel_cof_B_chn", sel_cof_B_chn));
 }
 /*************************/
-
