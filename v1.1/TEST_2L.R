@@ -3,7 +3,7 @@
 
 #' version 1.1
 
-source("2L_RFUN.R")
+source("RFUN_2L.R")
 
 #install.packages("RColorBrewer")
 library("RColorBrewer")
