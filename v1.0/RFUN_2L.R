@@ -23,7 +23,7 @@ library("compiler")
 #enableJIT(1)
 
 # call C++ functions
-sourceCpp("2L_CFUN.cpp")
+sourceCpp("CFUN_2L.cpp")
 
 ################################################################################
 
