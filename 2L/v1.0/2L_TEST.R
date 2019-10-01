@@ -3,9 +3,6 @@
 
 #' version 1.0
 
-# set the directory
-setwd("~/Dropbox/Jeffery He/iResearch/Publications/2016/HE2019-WFD-2L-MMSE-PMMH-Genetics")
-
 source("2L_RFUN.R")
 
 #install.packages("RColorBrewer")
