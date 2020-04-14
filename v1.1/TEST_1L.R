@@ -3,10 +3,7 @@
 
 #' version 1.1
 
-# set the directory
-setwd("~/Dropbox/Jeffery He/iResearch/Publications/2013/HE2020-WFM-2L-DiffusApprox-FwdPMMH-Genetics")
-
-source("./Code/Code v2.1/Code v2.2/RFUN_1L.R")
+source("./RFUN_1L.R")
 
 #install.packages("RColorBrewer")
 library("RColorBrewer")
