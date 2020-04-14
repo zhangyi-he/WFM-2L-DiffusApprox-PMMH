@@ -1,4 +1,4 @@
-// Detecting and quantifying natural selection at two linked loci from time series data of allele frequencies
+// Detecting and quantifying natural selection at two linked loci from time series data of allele frequencies with forward-in-time simulations
 // Zhangyi He, Xiaoyang Dai, Mark Beaumont and Feng Yu
 
 // version 1.1
