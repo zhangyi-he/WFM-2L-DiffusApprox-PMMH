@@ -1,4 +1,4 @@
-// Detecting and quantifying natural selection at two linked loci from time series data of allele frequencies
+// Detecting and quantifying natural selection at two linked loci from time series data of allele frequencies with forward-in-time simulations
 // Zhangyi He, Xiaoyang Dai, Mark Beaumont and Feng Yu
 
 // version 1.0
@@ -189,7 +189,7 @@ arma::imat calculateHaploCnt_arma(const int& smp_siz, const arma::icolvec& smp_c
         smp_hap_cnt.insert_cols(0, 1);
       }
     }
-    smp_hap_cnt.shed_cols(0, 1);
+    smp_hap_cnt.shed_cols(0, 0);
     
     return smp_hap_cnt;
   } else {

@@ -1,4 +1,4 @@
-#' @title Detecting and quantifying natural selection at two linked loci from time series data of allele frequencies
+#' @title Detecting and quantifying natural selection at two linked loci from time series data of allele frequencies with forward-in-time simulations
 #' @author Zhangyi He, Xiaoyang Dai, Mark Beaumont and Feng Yu
 
 #' version 1.0
@@ -23,7 +23,7 @@ library("compiler")
 #enableJIT(1)
 
 # call C++ functions
-sourceCpp("CFUN_1L.cpp")
+sourceCpp("./Code/Code v2.1/Code v2.1/CFUN_1L.cpp")
 
 ################################################################################
 
