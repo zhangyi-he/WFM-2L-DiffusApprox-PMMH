@@ -2,8 +2,7 @@
 #' @author Zhangyi He, Xiaoyang Dai, Mark Beaumont and Feng Yu
 
 #' version 1.0
-
-source("./RFUN_2L.R")
+#' Two-loucs population dynamics (N/A is not allowed)
 
 #install.packages("RColorBrewer")
 library("RColorBrewer")
@@ -16,6 +15,9 @@ library("ggplot2")
 
 #install.packages("plot3D")
 library("plot3D")
+
+# call R functions
+source("./RFUN_2L.R")
 
 ################################################################################
 
