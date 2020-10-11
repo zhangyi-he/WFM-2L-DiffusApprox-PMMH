@@ -324,7 +324,7 @@ List runBPF_arma(const double& sel_cof_A, const double& dom_par_A, const double&
 /*************************/
 
 
-/********** PMMH **********/
+/********* PMMH **********/
 // Calculate the log-likelihood using the bootstrap particle filter
 // [[Rcpp::export]]
 double calculateLogLikelihood_arma(const double& sel_cof_A, const double& dom_par_A, const double& sel_cof_B, const double& dom_par_B, const double& rec_rat, const int& pop_siz, const arma::irowvec& smp_gen, const arma::irowvec& smp_siz, const arma::field<arma::imat>& ptl_hap_cnt, const arma::uword& ptn_num, const arma::uword& pcl_num) {
