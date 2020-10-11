@@ -58,14 +58,14 @@ cmpsimulateOLWFMS <- cmpfun(simulateOLWFMS)
 #' @param int_gen the first generation of the simulated mutant allele frequency trajectory
 #' @param lst_gen the last generation of the simulated mutant allele frequency trajectory
 #' @param ptn_num the number of subintervals divided per generation in the Euler-Maruyama method
-#' @param data_augmentation = TRUE/FALSE (return the simulated sample trajectory with data augmentation or not)
+#' @param dat_aug = TRUE/FALSE (return the simulated sample trajectory with data augmentation or not)
 
 #' Standard version
-simulateOLWFDS <- function(sel_cof, dom_par, pop_siz, int_frq, int_gen, lst_gen, ptn_num, data_augmentation = TRUE) {
+simulateOLWFDS <- function(sel_cof, dom_par, pop_siz, int_frq, int_gen, lst_gen, ptn_num, dat_aug = TRUE) {
   frq_pth <- simulateOLWFDS_arma(sel_cof, dom_par, pop_siz, int_frq, int_gen, lst_gen, ptn_num)
   frq_pth <- as.vector(frq_pth)
   
-  if (data_augmentation == FALSE) {
+  if (dat_aug == FALSE) {
     return(frq_pth[(0:(lst_gen - int_gen)) * ptn_num + 1])
   } else {
     return(frq_pth)
@@ -97,7 +97,7 @@ simulateHMM <- function(model, sel_cof, dom_par, pop_siz, int_frq, smp_gen, smp_
     pop_frq <- cmpsimulateOLWFMS(sel_cof, dom_par, pop_siz, int_frq, int_gen, lst_gen)
   }
   if (model == "WFD") {
-    pop_frq <- cmpsimulateOLWFDS(sel_cof, dom_par, pop_siz, int_frq, int_gen, lst_gen, ptn_num, data_augmentation = FALSE)
+    pop_frq <- cmpsimulateOLWFDS(sel_cof, dom_par, pop_siz, int_frq, int_gen, lst_gen, ptn_num, dat_aug = FALSE)
   }
   
   # generate the sample allele counts at all sampling time points
