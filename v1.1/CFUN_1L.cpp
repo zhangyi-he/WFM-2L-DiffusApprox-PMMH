@@ -2,7 +2,7 @@
 // Zhangyi He, Xiaoyang Dai, Mark Beaumont and Feng Yu
 
 // version 1.1
-// Single-loucs population dynamics (N/A is allowed)
+// Single-loucs case (N/A is allowed)
 
 // C functions
 
