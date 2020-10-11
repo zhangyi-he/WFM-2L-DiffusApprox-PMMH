@@ -67,7 +67,7 @@ plot(k, frq_pth[4, ], type = "l", lwd = 1.5,
 #' @param int_gen the first generation of the simulated haplotype frequency trajectories
 #' @param lst_gen the last generation of the simulated haplotype frequency trajectories
 #' @param ptn_num the number of subintervals divided per generation in the Euler-Maruyama method
-#' @param data_augmentation = TRUE/FALSE (return the simulated sample trajectory with data augmentation or not)
+#' @param dat_aug = TRUE/FALSE (return the simulated sample trajectory with data augmentation or not)
 
 sel_cof <- c(1e-02, 5e-03)
 dom_par <- c(5e-01, 5e-01)
@@ -78,7 +78,7 @@ int_gen <- 0
 lst_gen <- 500
 ptn_num <- 5e+00
 
-frq_pth <- cmpsimulateTLWFDS(sel_cof, dom_par, rec_rat, pop_siz, int_frq, int_gen, lst_gen, ptn_num, data_augmentation = TRUE)
+frq_pth <- cmpsimulateTLWFDS(sel_cof, dom_par, rec_rat, pop_siz, int_frq, int_gen, lst_gen, ptn_num, dat_aug = TRUE)
 
 t <- (int_gen:(int_gen + (lst_gen - int_gen) * ptn_num)) / 2 / pop_siz
 plot(t, frq_pth[1, ], type = "l", lwd = 1.5, 
@@ -112,7 +112,7 @@ sim_frq_WFD <- matrix(NA, nrow = 4, ncol = sim_num)
 for (i in 1:sim_num) {
   print(i)
   sim_frq_WFM[, i] <- cmpsimulateTLWFMS(sel_cof, dom_par, rec_rat, pop_siz, int_frq, int_gen, lst_gen)[, (lst_gen - int_gen) + 1]
-  sim_frq_WFD[, i] <- cmpsimulateTLWFDS(sel_cof, dom_par, rec_rat, pop_siz, int_frq, int_gen, lst_gen, ptn_num, data_augmentation = FALSE)[, (lst_gen - int_gen) + 1]
+  sim_frq_WFD[, i] <- cmpsimulateTLWFDS(sel_cof, dom_par, rec_rat, pop_siz, int_frq, int_gen, lst_gen, ptn_num, dat_aug = FALSE)[, (lst_gen - int_gen) + 1]
 }
 
 hist(sim_frq_WFM[1, ], breaks = seq(min(sim_frq_WFM[1, ], sim_frq_WFD[1, ]), max(sim_frq_WFM[1, ], sim_frq_WFD[1, ]), length.out = 50), freq = FALSE, col = rgb(0.1, 0.1, 0.1, 0.5), 
