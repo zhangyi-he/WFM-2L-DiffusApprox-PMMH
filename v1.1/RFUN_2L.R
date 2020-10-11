@@ -2,7 +2,7 @@
 #' @author Zhangyi He, Xiaoyang Dai, Mark Beaumont and Feng Yu
 
 #' version 1.1
-#' Two-loucs population dynamics (N/A is allowed)
+#' Two-loucs case (N/A is allowed)
 
 #' R functions
 
@@ -25,6 +25,7 @@ library("compiler")
 
 # call C++ functions
 sourceCpp("./CFUN_2L.cpp")
+
 
 ################################################################################
 
@@ -64,10 +65,10 @@ cmpsimulateTLWFMS <- cmpfun(simulateTLWFMS)
 #' @param int_gen the first generation of the simulated haplotype frequency trajectories
 #' @param lst_gen the last generation of the simulated haplotype frequency trajectories
 #' @param ptn_num the number of subintervals divided per generation in the Euler-Maruyama method
-#' @param dat_aug = TRUE/FALSE (return the simulated sample trajectory with data augmentation or not)
+#' @param data_augmentation = TRUE/FALSE (return the simulated sample trajectory with data augmentation or not)
 
 #' Standard version
-simulateTLWFDS <- function(sel_cof, dom_par, rec_rat, pop_siz, int_frq, int_gen, lst_gen, ptn_num, dat_aug = TRUE) {
+simulateTLWFDS <- function(sel_cof, dom_par, rec_rat, pop_siz, int_frq, int_gen, lst_gen, ptn_num, data_augmentation = TRUE) {
   sel_cof_A <- sel_cof[1]
   sel_cof_B <- sel_cof[2]
   dom_par_A <- dom_par[1]
@@ -75,7 +76,7 @@ simulateTLWFDS <- function(sel_cof, dom_par, rec_rat, pop_siz, int_frq, int_gen,
   
   frq_pth <- simulateTLWFDS_arma(sel_cof_A, dom_par_A, sel_cof_B, dom_par_B, rec_rat, pop_siz, int_frq, int_gen, lst_gen, ptn_num)
   
-  if (dat_aug == FALSE) {
+  if (data_augmentation == FALSE) {
     return(frq_pth[, (0:(lst_gen - int_gen)) * ptn_num + 1])
   } else {
     return(frq_pth)
@@ -110,7 +111,7 @@ simulateHMM <- function(model, missing, mis_rat, sel_cof, dom_par, rec_rat, pop_
     pop_hap_frq <- cmpsimulateTLWFMS(sel_cof, dom_par, rec_rat, pop_siz, int_frq, int_gen, lst_gen)
   }
   if (model == "WFD") {
-    pop_hap_frq <- cmpsimulateTLWFDS(sel_cof, dom_par, rec_rat, pop_siz, int_frq, int_gen, lst_gen, ptn_num, dat_aug = FALSE)
+    pop_hap_frq <- cmpsimulateTLWFDS(sel_cof, dom_par, rec_rat, pop_siz, int_frq, int_gen, lst_gen, ptn_num, data_augmentation = FALSE)
   }
   pop_ale_frq <- matrix(NA, nrow = 2, ncol = (lst_gen - int_gen) + 1)
   pop_ale_frq[1, ] <- pop_hap_frq[1, ] + pop_hap_frq[2, ]
