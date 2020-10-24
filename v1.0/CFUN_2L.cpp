@@ -64,7 +64,7 @@ arma::dmat simulateTLWFMS_arma(const double& sel_cof_A, const double& dom_par_A,
   eta(2) = 1;
   eta(3) = -1;
   
-  for(arma::uword t = 1; t < arma::uword(lst_gen - int_gen) + 1; t++) {
+  for (arma::uword t = 1; t < arma::uword(lst_gen - int_gen) + 1; t++) {
     // random union of gametes
     gen_frq = hap_frq * hap_frq.t();
     
@@ -73,7 +73,7 @@ arma::dmat simulateTLWFMS_arma(const double& sel_cof_A, const double& dom_par_A,
     
     // meiosis (calculate the sampling probability)
     arma::dcolvec prob = arma::zeros<arma::dcolvec>(4);
-    for(arma::uword i = 0; i < 4; i++) {
+    for (arma::uword i = 0; i < 4; i++) {
       prob(i) = (sum(gen_frq.row(i)) + sum(gen_frq.col(i))) / 2;
     }
     prob = prob + eta * rec_rat * (prob(0) * prob(3) - prob(1) * prob(2));
@@ -153,11 +153,11 @@ arma::dmat simulateTLWFDS_arma(const double& sel_cof_A, const double& dom_par_A,
     hap_frq_pth.col(t) = hap_frq_pth.col(t - 1) + mu * dt + sigma * dW.col(t - 1);
     
     // remove the noise from the numerical techniques
-    for(arma::uword i = 0; i < 4; i++) {
-      if(hap_frq_pth(i, t) < 0) {
+    for (arma::uword i = 0; i < 4; i++) {
+      if (hap_frq_pth(i, t) < 0) {
         hap_frq_pth(i, t) = 0;
       } 
-      if(hap_frq_pth(i, t) > 1) {
+      if (hap_frq_pth(i, t) > 1) {
         hap_frq_pth(i, t) = 1;
       }
     }
@@ -223,15 +223,15 @@ double calculateMultinomProb_arma(const arma::icolvec& smp_cnt, const int& smp_s
 
 // Initialise the particles in the particle filter (uniform generation from the flat Dirichlet distribution)
 // [[Rcpp::export]]
-arma::dmat initialiseParticle(const arma::uword& pcl_num){
+arma::dmat initialiseParticle(const arma::uword& pcl_num) {
   // ensure RNG gets set/reset
   RNGScope scope;
   
   NumericMatrix part(pcl_num, 4);
-  for(int j = 0; j < 4; j++){
+  for (int j = 0; j < 4; j++) {
     part(_, j) = rgamma(pcl_num, 1.0, 1.0);
   }
-  for(int i = 0; i < pcl_num; i++){
+  for (int i = 0; i < pcl_num; i++) {
     part(i, _) = part(i, _) / sum(part(i, _));
   }
   
