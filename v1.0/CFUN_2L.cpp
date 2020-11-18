@@ -223,7 +223,7 @@ double calculateMultinomProb_arma(const arma::icolvec& smp_cnt, const int& smp_s
 
 // Initialise the particles in the particle filter (uniform generation from the flat Dirichlet distribution)
 // [[Rcpp::export]]
-arma::dmat initialiseParticle(const arma::uword& pcl_num) {
+arma::dmat initialiseParticle_arma(const arma::uword& pcl_num) {
   // ensure RNG gets set/reset
   RNGScope scope;
   
@@ -255,7 +255,7 @@ List runBPF_arma(const double& sel_cof_A, const double& dom_par_A, const double&
   
   // initialise the particles
   cout << "generation: " << smp_gen(0) << endl;
-  part_tmp = initialiseParticle(pcl_num);
+  part_tmp = initialiseParticle_arma(pcl_num);
   arma::imat smp_hap_cnt = calculateHaploCnt_arma(smp_siz(0), smp_cnt.col(0));
   for (arma::uword i = 0; i < pcl_num; i++) {
     for (arma::uword j = 0; j < smp_hap_cnt.n_cols; j++) {
@@ -338,7 +338,7 @@ double calculateLogLikelihood_arma(const double& sel_cof_A, const double& dom_pa
   arma::dmat part_pst = arma::zeros<arma::dmat>(4, pcl_num);
   
   // initialise the particles
-  part_pre = initialiseParticle(pcl_num);
+  part_pre = initialiseParticle_arma(pcl_num);
   arma::imat smp_hap_cnt = ptl_hap_cnt(0);
   for (arma::uword i = 0; i < pcl_num; i++) {
     for (arma::uword j = 0; j < smp_hap_cnt.n_cols; j++) {
