@@ -243,9 +243,6 @@ points(smp_gen, smp_ale_frq[4, ], col = 'red', pch = 17, cex = 1)
 ################################################################################
 
 #' Generate a simulated dataset under the Wright-Fisher model 
-test_seed <- 7
-set.seed(test_seed)
-
 model <- "WFM"
 missing <- TRUE
 mis_rat <- 2e-02
@@ -316,8 +313,6 @@ dev.off()
 #' @param pcl_num the number of particles generated in the bootstrap particle filter
 
 load("./TEST_2L_SimData.rda")
-
-set.seed(test_seed)
 
 sel_cof
 dom_par
@@ -407,8 +402,6 @@ dev.off()
 
 load("./TEST_2L_SimData.rda")
 
-set.seed(test_seed)
-
 sel_cof
 dom_par
 rec_rat
@@ -454,8 +447,6 @@ dev.off()
 #' @param itn_num the number of the iterations carried out in the particle marginal Metropolis-Hastings
 
 load("./TEST_2L_SimData.rda")
-
-set.seed(test_seed)
 
 sel_cof <- c(0e+00, 0e+00)
 dom_par <- c(5e-01, 5e-01)
@@ -527,8 +518,6 @@ dev.off()
 #' @param grd_num the number of the grids in the kernel density estimation
 
 load("./TEST_2L_SimData.rda")
-
-set.seed(test_seed)
 
 sel_cof <- c(0e+00, 0e+00)
 dom_par <- c(5e-01, 5e-01)
