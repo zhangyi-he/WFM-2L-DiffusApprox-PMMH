@@ -2,7 +2,7 @@
 #' @author Zhangyi He, Xiaoyang Dai, Mark Beaumont and Feng Yu
 
 #' version 1.1
-#' Single-loucs case (N/A is allowed)
+#' A single locus with missing genotypes
 
 #' R functions
 
