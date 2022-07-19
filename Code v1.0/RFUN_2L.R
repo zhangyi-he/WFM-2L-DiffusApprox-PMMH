@@ -2,7 +2,7 @@
 #' @author Zhangyi He, Xiaoyang Dai, Mark Beaumont and Feng Yu
 
 #' version 1.0
-#' Two-loucs case (N/A is not allowed)
+#' Two linked loci without missing genotypes
 
 #' R functions
 
