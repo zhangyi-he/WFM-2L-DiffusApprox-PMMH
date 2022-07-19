@@ -2,7 +2,7 @@
 // Zhangyi He, Xiaoyang Dai, Mark Beaumont and Feng Yu
 
 // version 1.0
-// Single-loucs case (N/A is not allowed)
+// A single locus without missing genotypes
 
 // C functions
 
@@ -185,7 +185,7 @@ List runBPF_arma(const double& sel_cof, const double& dom_par, const int& pop_si
 /*************************/
 
 
-/********* PMMH **********/
+/********** PMMH **********/
 // Calculate the log-likelihood using the bootstrap particle filter
 // [[Rcpp::export]]
 double calculateLogLikelihood_arma(const double& sel_cof, const double& dom_par, const int& pop_siz, const arma::irowvec& smp_gen, const arma::irowvec& smp_siz, const arma::irowvec& smp_cnt, const arma::uword& ptn_num, const arma::uword& pcl_num) {
