@@ -2,7 +2,7 @@
 #' @author Zhangyi He, Xiaoyang Dai, Mark Beaumont and Feng Yu
 
 #' version 1.1
-#' Two-loucs case (N/A is allowed)
+#' Two linked loci with missing genotypes
 
 #' R functions
 
@@ -25,7 +25,6 @@ library("compiler")
 
 # call C++ functions
 sourceCpp("./CFUN_2L.cpp")
-
 
 ################################################################################
 
