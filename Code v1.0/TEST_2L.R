@@ -2,7 +2,7 @@
 #' @author Zhangyi He, Xiaoyang Dai, Mark Beaumont and Feng Yu
 
 #' version 1.0
-#' Two-loucs case (N/A is not allowed)
+#' Two linked loci without missing genotypes
 
 #install.packages("RColorBrewer")
 library("RColorBrewer")
@@ -115,6 +115,13 @@ for (i in 1:sim_num) {
   sim_frq_WFD[, i] <- cmpsimulateTLWFDS(sel_cof, dom_par, rec_rat, pop_siz, int_frq, int_gen, lst_gen, ptn_num, dat_aug = FALSE)[, (lst_gen - int_gen) + 1]
 }
 
+save(sel_cof, dom_par, rec_rat, pop_siz, int_frq, int_gen, lst_gen, ptn_num, sim_num, sim_frq_WFM, sim_frq_WFD, 
+     file = "./TEST_2L_WFM_vs_WFD.rda")
+
+load("./TEST_2L_WFM_vs_WFD.rda")
+
+pdf(file = "./TEST_2L_WFM_vs_WFD.pdf", width = 20, height = 10)
+par(mfrow = c(2, 2), mar = c(5.5, 5, 5.5, 2.5), oma = c(0, 0, 3, 0), cex.main = 1.75, cex.sub = 1.5, cex.axis = 1.5, cex.lab = 1.5)
 hist(sim_frq_WFM[1, ], breaks = seq(min(sim_frq_WFM[1, ], sim_frq_WFD[1, ]), max(sim_frq_WFM[1, ], sim_frq_WFD[1, ]), length.out = 50), freq = FALSE, col = rgb(0.1, 0.1, 0.1, 0.5), 
      xlim = c(min(sim_frq_WFM[1, ], sim_frq_WFD[1, ]), max(sim_frq_WFM[1, ], sim_frq_WFD[1, ])), 
      xlab = "Haplotype frequency", main = "Haplotype A1B1")
@@ -134,6 +141,8 @@ hist(sim_frq_WFM[4, ], breaks = seq(min(sim_frq_WFM[4, ], sim_frq_WFD[4, ]), max
      xlim = c(min(sim_frq_WFM[4, ], sim_frq_WFD[4, ]), max(sim_frq_WFM[4, ], sim_frq_WFD[4, ])), 
      xlab = "Haplotype frequency", main = "Haplotype A2B2")
 hist(sim_frq_WFD[4, ], breaks = seq(min(sim_frq_WFM[4, ], sim_frq_WFD[4, ]), max(sim_frq_WFM[4, ], sim_frq_WFD[4, ]), length.out = 50), freq = FALSE, col = rgb(0.8, 0.8, 0.8, 0.5), add = TRUE)
+title(paste("Histograms of the haplotype frequencies in generation", lst_gen, "under the Wright-Fisher model and the Wright-Fisher diffusion"), outer = TRUE)
+dev.off()
 
 ################################################################################
 
@@ -217,6 +226,9 @@ points(smp_gen, smp_ale_frq[2, ], col = 'red', pch = 17, cex = 1)
 ################################################################################
 
 #' Generate a simulated dataset under the Wright-Fisher model 
+test_seed <- 7
+set.seed(test_seed)
+
 model <- "WFM"
 sel_cof <- c(1e-02, 5e-03)
 dom_par <- c(5e-01, 5e-01)
@@ -273,6 +285,8 @@ dev.off()
 #' @param pcl_num the number of particles generated in the bootstrap particle filter
 
 load("./TEST_2L_SimData.rda")
+
+set.seed(test_seed)
 
 sel_cof
 dom_par
@@ -367,6 +381,8 @@ dev.off()
 
 load("./TEST_2L_SimData.rda")
 
+set.seed(test_seed)
+
 sel_cof
 dom_par
 rec_rat
@@ -413,6 +429,8 @@ dev.off()
 #' @param itn_num the number of the iterations carried out in the particle marginal Metropolis-Hastings
 
 load("./TEST_2L_SimData.rda")
+
+set.seed(test_seed)
 
 sel_cof <- c(0e+00, 0e+00)
 dom_par <- c(5e-01, 5e-01)
@@ -486,6 +504,8 @@ dev.off()
 #' @param grd_num the number of the grids in the kernel density estimation
 
 load("./TEST_2L_SimData.rda")
+
+set.seed(test_seed)
 
 sel_cof <- c(0e+00, 0e+00)
 dom_par <- c(5e-01, 5e-01)
