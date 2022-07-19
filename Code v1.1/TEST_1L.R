@@ -2,7 +2,7 @@
 #' @author Zhangyi He, Xiaoyang Dai, Mark Beaumont and Feng Yu
 
 #' version 1.1
-#' Single-loucs case (N/A is allowed)
+#' A single locus with missing genotypes
 
 #install.packages("RColorBrewer")
 library("RColorBrewer")
@@ -92,11 +92,19 @@ for (i in 1:sim_num) {
   sim_frq_WFD[i] <- cmpsimulateOLWFDS(sel_cof, dom_par, pop_siz, int_frq, int_gen, lst_gen, ptn_num, dat_aug = FALSE)[(lst_gen - int_gen) + 1]
 }
 
+save(sel_cof, sel_cof, pop_siz, int_frq, int_gen, lst_gen, ptn_num, sim_num, sim_frq_WFM, sim_frq_WFD, 
+     file = "./TEST_1L_WFM_vs_WFD.rda")
+
+load("./TEST_1L_WFM_vs_WFD.rda")
+
+pdf(file = "./TEST_1L_WFM_vs_WFD.rda", width = 20, height = 10)
+par(mar = c(5.5, 5, 5.5, 2.5), cex.main = 2, cex.sub = 1.75, cex.axis = 1.75, cex.lab = 1.75)
 hist(sim_frq_WFM, breaks = seq(min(sim_frq_WFM, sim_frq_WFD), max(sim_frq_WFM, sim_frq_WFD), length.out = 50), freq = FALSE, col = rgb(0.1, 0.1, 0.1, 0.5), 
      xlim = c(min(sim_frq_WFM, sim_frq_WFD), max(sim_frq_WFM, sim_frq_WFD)), 
      xlab = "Allele frequency", 
      main = paste("Histograms of the mutant allele frequency in generation", lst_gen, "under the Wright-Fisher model and the Wright-Fisher diffusion"))
 hist(sim_frq_WFD, breaks = seq(min(sim_frq_WFM, sim_frq_WFD), max(sim_frq_WFM, sim_frq_WFD), length.out = 50), freq = FALSE, col = rgb(0.8, 0.8, 0.8, 0.5), add = TRUE)
+dev.off()
 
 ################################################################################
 
@@ -179,6 +187,9 @@ points(smp_gen, smp_frq[2, ], col = 'red', pch = 17, cex = 1)
 ################################################################################
 
 #' Generate a simulated dataset under the Wright-Fisher model
+test_seed <- 7
+set.seed(test_seed)
+
 model <- "WFM"
 missing <- TRUE
 mis_rat <- 2e-02
@@ -233,6 +244,8 @@ dev.off()
 #' @param pcl_num the number of particles generated in the bootstrap particle filter
 
 load("./TEST_1L_SimData.rda")
+
+set.seed(test_seed)
 
 sel_cof
 dom_par
@@ -295,6 +308,8 @@ dev.off()
 
 load("./TEST_1L_SimData.rda")
 
+set.seed(test_seed)
+
 sel_cof
 dom_par
 pop_siz
@@ -339,6 +354,8 @@ dev.off()
 #' @param itn_num the number of the iterations carried out in the particle marginal Metropolis-Hastings
 
 load("./TEST_1L_SimData.rda")
+
+set.seed(test_seed)
 
 sel_cof
 dom_par
@@ -403,6 +420,8 @@ dev.off()
 #' @param grd_num the number of the grids in the kernel density estimation
 
 load("./TEST_1L_SimData.rda")
+
+set.seed(test_seed)
 
 sel_cof
 dom_par
